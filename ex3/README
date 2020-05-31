@@ -1,0 +1,41 @@
+Running Time Results:
+
+size 50
+eigen mult 0.00118291
+eigen add 6.2505e-05
+matlib mult 0.00219463
+matlib add 1.8762e-05
+
+size 500
+eigen mult 0.90984
+eigen add 0.00382175
+matlib mult 1.90853
+matlib add 0.00175493
+
+
+Answers to Questions:
+
+1.) According to the results above, we can see that in the adding operation, the Matlib runs
+faster then the Eigen. But, in the multiplication operation, the Eigen runs faster then the
+Matlib. In our implementation, we used a primitive algorithm for matrix multiplication, and
+as a result the Eigen runs faster with multiplication. 
+
+Moreover, algorithms that traverse a matrix row by row will go faster when the matrix is stored 
+in row-major order because of better data locality. Similarly, column-by-column traversal is 
+faster for column-major matrices. It may be worthwhile to experiment a bit to find out what is 
+faster for your particular application.
+The default in Eigen is column-major. Naturally, most of the development and testing of the Eigen 
+library is thus done with column-major matrices. This means that, even though we aim to support 
+column-major and row-major storage orders transparently, the Eigen library may well work best with 
+column-major matrices, whereas in Matlib we used only one generic vector to store all the values. 
+In addition, our implementation for adding to matrices is faster then Eigen addition, because we 
+have more assumptions about the type T of the generic matrix: we assumed in advance that arithmetic 
+operations could be done on it.
+
+2.) As we can see from the results, addition operation for generic matrices is much faster
+then multiplication operation, due to the number of inner computation operations in each one
+of addition and multiplication. We learned in DAST that addition operation for matrices takes
+O(n) (n represents the matrix size), whereas multiplication operation for matrices takes
+O(n^3) (in the naive algorithm that we used). As for the difference between Eigen and Matlib
+running time for each one of the operations (addition and multiplication), we have already
+answered where this difference comes from in the answer for question number 1.
